@@ -16,7 +16,8 @@ User.destroy_all
   Following.create(user_id: user_id, following_id: (User.ids - [user_id]).sample)
 end
 
-7.times do |i|
+7.times do |day|
+  i = 7 - day
   User.all.each do |user|
     start_time = i.days.ago.beginning_of_day - (rand(1..5).hours)
     length     = rand(5..10)
