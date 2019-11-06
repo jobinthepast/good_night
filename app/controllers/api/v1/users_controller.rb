@@ -32,7 +32,7 @@ class Api::V1::UsersController < Api::BaseController
 
     if user
       user_followings = User.where(id: user.followings.map(&:following_id))
-      followings_last_week_records = user_followings.map { |user_following| user_following.last_week_records }
+      followings_last_week_records = user_followings.map { |user_following| user_following.last_week_records_by_length }
 
       render json: { message: 'Successfully get friends records', user_id: user.id, records: followings_last_week_records.as_json }
     end
