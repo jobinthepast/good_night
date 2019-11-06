@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+User.destroy_all
+
+10.times { User.create(name: FFaker::Name.name) }
+
+5.times do
+  user_id = User.ids.sample
+  Following.create(user_id: user_id, following_id: (User.ids - [user_id]).sample)
+end
+
+
