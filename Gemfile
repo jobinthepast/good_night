@@ -56,3 +56,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'ffaker'
 gem 'rb-readline'
 gem 'awesome_print'
+gem 'jquery-rails'

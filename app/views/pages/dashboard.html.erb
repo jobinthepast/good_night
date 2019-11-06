@@ -1,5 +1,30 @@
-<%- @users.each do |user| %>
-  <p>
-    <%= user.id %>: <%= user.name %>
-  </p>
-<%- end %>
+<div style="border-right:1px solid #ccc; width:50%; float:left">
+  <%- @users.each do |user| %>
+    <p>
+      <%= user.id %>: <%= user.name %>
+      |
+      <%= link_to 'Sleep', api_v1_sleep_path(user.id), remote: true, method: 'POST', onclick: "$(this).remove()" %>
+      |
+      <%= link_to 'Wake up', api_v1_wake_up_path(user.id), remote: true, method: 'POST', onclick: "$(this).remove()" %>
+      |
+      <%= link_to 'All clocked ins', api_v1_clocked_ins_path(user.id), remote: true, method: 'GET' %>
+      |
+      <%= link_to 'Follow someone', api_v1_follow_path(user.id, (User.ids - [user.id, user.followings.pluck(:following_id)]).sample), remote: true, method: 'POST' %>
+      |
+      <%= link_to 'Unfollow someone', api_v1_unfollow_path(user.id, user.followings.pluck(:following_id).sample), remote: true, method: 'DELETE' unless user.following_ids.blank? %>
+      |
+      <%= link_to 'Friends records', api_v1_friends_records_path(user.id), remote: true, method: 'GET' unless user.following_ids.blank? %>
+    </p>
+  <%- end %>
+</div>
+
+<div class='records' style="padding-left: 20px; float:left">
+  <%- @users.each do |user| %>
+    <p>
+      ID: <%= user.id %>, start_time: <%= user.last_sleep.try(:start_time) %>; end_time: <%= user.last_sleep.try(:end_time) || '...' %>, length: <%= user.last_sleep.try(:length) || '...' %>
+      <br />
+
+      Followings: <%= user.followings.pluck(:following_id).join(', ') %>
+    </p>
+  <%- end %>
+</div>

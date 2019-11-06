@@ -16,4 +16,12 @@ User.destroy_all
   Following.create(user_id: user_id, following_id: (User.ids - [user_id]).sample)
 end
 
+7.times do |i|
+  User.all.each do |user|
+    start_time = i.days.ago.beginning_of_day - (rand(1..5).hours)
+    length     = rand(5..10)
+    end_time   = start_time + length.hours
 
+    Sleep.create(user_id: user.id, start_time: start_time, end_time: end_time, length: length)
+  end
+end
