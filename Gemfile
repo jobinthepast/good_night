@@ -57,3 +57,14 @@ gem 'ffaker'
 gem 'rb-readline'
 gem 'awesome_print'
 gem 'jquery-rails'
+
+group :test do
+  gem 'factory_bot_rails'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+end
+
